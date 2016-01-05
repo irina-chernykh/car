@@ -7,38 +7,28 @@
 
 using namespace sf;
 
-void DrawObjects(RenderWindow &window, Car &car, RectangleShape background)
+void PositionCarParts(Car * car)
 {
-	window.clear();
-	window.draw(background);
-	window.draw(car.carBody);
-	window.draw(car.frontWheel);
-	window.draw(car.rearWheel);
-	window.display();
-}
+	car->frontWheel.setRadius(FRONT_WHEEL_RADIUS);
+	car->frontWheel.setOrigin(FRONT_WHEEL_RADIUS, FRONT_WHEEL_RADIUS);
 
-void PositionCarParts()
-{
-	car.frontWheel.setRadius(FRONT_WHEEL_RADIUS);
-	car.frontWheel.setOrigin(FRONT_WHEEL_RADIUS, FRONT_WHEEL_RADIUS);
-
-	car.rearWheel.setRadius(REAR_WHEEL_RADIUS);
-	car.rearWheel.setOrigin(REAR_WHEEL_RADIUS, REAR_WHEEL_RADIUS);
+	car->rearWheel.setRadius(REAR_WHEEL_RADIUS);
+	car->rearWheel.setOrigin(REAR_WHEEL_RADIUS, REAR_WHEEL_RADIUS);
 
 }
 
-void DrawCar(RenderWindow &window)
+void DrawCar(RenderWindow &window, Car * car)
 {
 	window.clear(Color::White);
-	window.draw(car.carBody);
-	window.draw(car.frontWheel);
-	window.draw(car.rearWheel);
+	window.draw(car->carBody);
+	window.draw(car->frontWheel);
+	window.draw(car->rearWheel);
 	window.display();
 }
 
-void MoveCar(RenderWindow &window, float acceleration)
+void MoveCar(RenderWindow &window, float acceleration, Car * car)
 {
-	PositionCarParts();
+	PositionCarParts(car);
 	Clock clock;
 
 	while (window.isOpen())
@@ -53,14 +43,15 @@ void MoveCar(RenderWindow &window, float acceleration)
 		clock.restart();
 		time = time * acceleration;
 
-		car.CounterSpeed(event, time);
-		DrawCar(window);
+		UpdateSpeed(event, time, car);
+		DrawCar(window, car);
 
 	}
 }
 
 int main()
 {
+	Car car;
 	RenderWindow window(VideoMode(WINDOW_X, WINDOW_Y), "Car");
 
 	Texture body, frontWheel, rearWheel;
@@ -78,7 +69,7 @@ int main()
 
 	RectangleShape background;
 
-	MoveCar(window, car.acceleration);
+	MoveCar(window, car.acceleration, &car);
 
 	return 0;
 }
