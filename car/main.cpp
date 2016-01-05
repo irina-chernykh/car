@@ -27,7 +27,7 @@ void PositionCarParts()
 
 }
 
-void DrawCar(RenderWindow &window) 
+void DrawCar(RenderWindow &window)
 {
 	window.clear(Color::White);
 	window.draw(car.carBody);
@@ -64,9 +64,9 @@ int main()
 	RenderWindow window(VideoMode(WINDOW_X, WINDOW_Y), "Car");
 
 	Texture body, frontWheel, rearWheel;
-	body.loadFromFile("images/car.psd");
-	frontWheel.loadFromFile("images/wheel1.psd");
-	rearWheel.loadFromFile("images/wheel2.psd");
+	body.loadFromFile("images/car.png");
+	frontWheel.loadFromFile("images/wheel1.png");
+	rearWheel.loadFromFile("images/wheel2.png");
 
 	car.carBody.setTexture(body);
 
