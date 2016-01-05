@@ -21,3 +21,5 @@ struct Car {
 void UpdateSpeed(Event event, float time, Car * car);
 void UpdateRotation(Event event, float time, Car * car);
 void MoveParts(Car * car);
+void PositionCarParts(Car * car);
+void DrawCar(RenderWindow &window, Car * car);

@@ -45,3 +45,20 @@ void MoveParts(Car * car)
 	car->rearWheel.setPosition(REAR_WHEEL_X + car->carCoord.x, WINDOW_Y - REAR_WHEEL_RADIUS);
 	car->rearWheel.setRotation(car->rotation);
 }
+
+void PositionCarParts(Car * car)
+{
+	car->frontWheel.setRadius(FRONT_WHEEL_RADIUS);
+	car->frontWheel.setOrigin(FRONT_WHEEL_RADIUS, FRONT_WHEEL_RADIUS);
+
+	car->rearWheel.setRadius(REAR_WHEEL_RADIUS);
+	car->rearWheel.setOrigin(REAR_WHEEL_RADIUS, REAR_WHEEL_RADIUS);
+
+}
+
+void DrawCar(RenderWindow &window,Car * car)
+{
+	window.draw(car->carBody);
+	window.draw(car->frontWheel);
+	window.draw(car->rearWheel);
+}
