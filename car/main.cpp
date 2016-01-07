@@ -7,14 +7,26 @@
 
 using namespace sf;
 
-void DrawElements(RenderWindow &window, Car * car)
+void PositionCarParts(Car * car)
+{
+	car->frontWheel.setRadius(FRONT_WHEEL_RADIUS);
+	car->frontWheel.setOrigin(FRONT_WHEEL_RADIUS, FRONT_WHEEL_RADIUS);
+
+	car->rearWheel.setRadius(REAR_WHEEL_RADIUS);
+	car->rearWheel.setOrigin(REAR_WHEEL_RADIUS, REAR_WHEEL_RADIUS);
+
+}
+
+void DrawCar(RenderWindow &window, Car * car)
 {
 	window.clear(Color::White);
-	DrawCar(window, car);
+	window.draw(car->carBody);
+	window.draw(car->frontWheel);
+	window.draw(car->rearWheel);
 	window.display();
 }
 
-void WorkMainCycle(RenderWindow &window, float acceleration, Car * car)
+void MoveCar(RenderWindow &window, float acceleration, Car * car)
 {
 	PositionCarParts(car);
 	Clock clock;
@@ -32,7 +44,7 @@ void WorkMainCycle(RenderWindow &window, float acceleration, Car * car)
 		time = time * acceleration;
 
 		UpdateSpeed(event, time, car);
-		DrawElements(window, car);
+		DrawCar(window, car);
 
 	}
 }
@@ -42,9 +54,7 @@ int main()
 	Car car;
 	RenderWindow window(VideoMode(WINDOW_X, WINDOW_Y), "Car");
 
-	Texture body;
-	Texture frontWheel;
-	Texture rearWheel;
+	Texture body, frontWheel, rearWheel;
 	body.loadFromFile("images/car.png");
 	frontWheel.loadFromFile("images/wheel1.png");
 	rearWheel.loadFromFile("images/wheel2.png");
